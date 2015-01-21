@@ -12,12 +12,12 @@ Adds:
 
 Use:
 
-	Bucket -
+ Bucket -
 
  - Can be used with pipeworks or (without pipeworks) placed directly above water.
  - It also counts toward both grassland and desert fertility.
 
-	Light -
+ Light -
 
  - Can be used with mesecons or (without mesecons) punched to turn on.
  - Can be placed two nodes above soil/medium.
