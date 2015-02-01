@@ -8,5 +8,4 @@ How to Use:
  Light -
 
  - Can be used with mesecons or (without mesecons) punched to turn on.
- - Can be placed two nodes above soil/medium.
- - If placed two nodes above soil/medium then nothing can be placed one node under it.
+ - Can be placed infinitely above soil/medium.

@@ -8,4 +8,4 @@
 
 Adds:
  - A hydroponic bucket that works with pipeworks.
- - A grow light that works with mesecons and two nodes above soil.
+ - A grow light that works with mesecons and an infinite amount of nodes above soil.

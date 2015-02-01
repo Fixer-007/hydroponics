@@ -1,8 +1,7 @@
 -- Hydroponic Grow Light
 
 -- Can be used with mesecons or (without mesecons) punched to turn on.
--- Can be placed two nodes above soil/medium.
--- If placed two nodes above soil/medium then nothing can be placed one node under it.
+-- Can be placed infinitely above soil/medium.
 
 local grow_light_rules = {
 	-- X
@@ -34,24 +33,37 @@ minetest.register_node("hydroponics:grow_light_off", {
 	on_punch = function(pos, node, puncher, pointed_thing)
 		if not minetest.get_modpath("mesecons") then
 			minetest.set_node(pos, {name = "hydroponics:grow_light_on"})
+			local p = {x=pos.x, y=pos.y-1, z=pos.z}
+			local n = minetest.get_node(p)
+			while n.name == "air" do
+				minetest.set_node(p, {name = "air", param1 = 238})
+				p = {x=p.x, y=p.y-1, z=p.z}
+				n = minetest.get_node(p)
+			end
 		else
 			return
 		end
 	end,
-	on_construct = function(pos)
-		if minetest.get_node({x=pos.x, y=pos.y-1, z=pos.z}).name == "air" then
-			minetest.set_node({x=pos.x, y=pos.y-1, z=pos.z}, {name = "hydroponics:light_off"})
-		end
-	end,
-	on_destruct = function(pos)
-		if minetest.get_node({x=pos.x, y=pos.y-1, z=pos.z}).name == "hydroponics:light_off" then
-			minetest.set_node({x=pos.x, y=pos.y-1, z=pos.z}, {name = "air"})
+	after_dig_node = function(pos, node, digger)
+		local p = {x=pos.x, y=pos.y-1, z=pos.z}
+		local n = minetest.get_node(p)
+		while n.name == "air" do
+			minetest.set_node(p, {name = "air", param1 = 0})
+			p = {x=p.x, y=p.y-1, z=p.z}
+			n = minetest.get_node(p)
 		end
 	end,
 	mesecons = {effector = {
 		rules = grow_light_rules,
 		action_on = function (pos, node)
 			minetest.set_node(pos, {name = "hydroponics:grow_light_on"})
+			local p = {x=pos.x, y=pos.y-1, z=pos.z}
+			local n = minetest.get_node(p)
+			while n.name == "air" do
+				minetest.set_node(p, {name = "air", param1 = 238})
+				p = {x=p.x, y=p.y-1, z=p.z}
+				n = minetest.get_node(p)
+			end
 		end,
 	}}
 })
@@ -66,47 +78,39 @@ minetest.register_node("hydroponics:grow_light_on", {
 	on_punch = function(pos, node, puncher, pointed_thing)
 		if not minetest.get_modpath("mesecons") then
 			minetest.set_node(pos, {name = "hydroponics:grow_light_off"})
+			local p = {x=pos.x, y=pos.y-1, z=pos.z}
+			local n = minetest.get_node(p)
+			while n.name == "air" do
+				minetest.set_node(p, {name = "air", param1 = 0})
+				p = {x=p.x, y=p.y-1, z=p.z}
+				n = minetest.get_node(p)
+			end
 		else
 			return
 		end
 	end,
-	on_construct = function(pos)
-		if minetest.get_node({x=pos.x, y=pos.y-1, z=pos.z}).name == "air" then
-			minetest.set_node({x=pos.x, y=pos.y-1, z=pos.z}, {name = "hydroponics:light_on"})
-		end
-	end,
-	on_destruct = function(pos)
-		if minetest.get_node({x=pos.x, y=pos.y-1, z=pos.z}).name == "hydroponics:light_on" then
-			minetest.set_node({x=pos.x, y=pos.y-1, z=pos.z}, {name = "air"})
+	after_dig_node = function(pos, node, digger)
+		local p = {x=pos.x, y=pos.y-1, z=pos.z}
+		local n = minetest.get_node(p)
+		while n.name == "air" do
+			minetest.set_node(p, {name = "air", param1 = 0})
+			p = {x=p.x, y=p.y-1, z=p.z}
+			n = minetest.get_node(p)
 		end
 	end,
 	mesecons = {effector = {
 		rules = grow_light_rules,
 		action_off = function (pos, node)
 			minetest.set_node(pos, {name = "hydroponics:grow_light_off"})
+			local p = {x=pos.x, y=pos.y-1, z=pos.z}
+			local n = minetest.get_node(p)
+			while n.name == "air" do
+				minetest.set_node(p, {name = "air", param1 = 0})
+				p = {x=p.x, y=p.y-1, z=p.z}
+				n = minetest.get_node(p)
+			end
 		end,
 	}}
-})
-
-minetest.register_node("hydroponics:light_on", {
-	description = "Hydroponic Grow Light (Air On)",
-	drawtype = "airlike",
-	paramtype = "light",
-	light_source = 14,
-	sunlight_propagates = true,
-	walkable = false,
-	pointable = false,
-	groups = {not_in_creative_inventory=1},
-})
-
-minetest.register_node("hydroponics:light_off", {
-	description = "Hydroponic Grow Light (Air Off)",
-	drawtype = "airlike",
-	paramtype = "light",
-	sunlight_propagates = true,
-	walkable = false,
-	pointable = false,
-	groups = {not_in_creative_inventory=1},
 })
 
 if not minetest.get_modpath("moreblocks") then
