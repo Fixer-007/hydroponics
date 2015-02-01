@@ -165,6 +165,10 @@ function pipeworks.scan_pipe_surroundings(pos)
 	  and (nzp.param2 == 0 or nzp.param2 == 2) then
 		pzp=1
 	end
+	
+	if (string.find(nyp.name, "hydroponics:bucket_dry") ~= nil) then
+		pyp=1
+	end
 
 -- ...wet hydroponic bucket...
 
@@ -186,6 +190,10 @@ function pipeworks.scan_pipe_surroundings(pos)
 	if (string.find(nzp.name, "hydroponics:bucket_wet") ~= nil)
 	  and (nzp.param2 == 0 or nzp.param2 == 2) then
 		pzp=1
+	end
+	
+	if (string.find(nyp.name, "hydroponics:bucket_wet") ~= nil) then
+		pyp=1
 	end
 
 -- ...extra devices specified via the function's parameters

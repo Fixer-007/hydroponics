@@ -90,16 +90,18 @@ minetest.register_abm({
 			local nx2 = minetest.get_node({ x=pos.x+1, y=pos.y  , z=pos.z   })
 			local nz1 = minetest.get_node({ x=pos.x  , y=pos.y  , z=pos.z-1 })
 			local nz2 = minetest.get_node({ x=pos.x  , y=pos.y  , z=pos.z+1 })
+			local ny1 = minetest.get_node({ x=pos.x  , y=pos.y-1  , z=pos.z })
 
 			if (string.find(nx1.name, "pipeworks:") and string.find(nx1.name, "_loaded"))
-					or (string.find(nx2.name, "pipeworks:") and string.find(nx2.name, "_loaded"))
-					or (string.find(nz1.name, "pipeworks:") and string.find(nz1.name, "_loaded"))
-					or (string.find(nz2.name, "pipeworks:") and string.find(nz2.name, "_loaded")) then
-				if node.name ~= "hydroponics:bucket_dry" then
-					return
-				else
-					minetest.set_node(pos, {name = "hydroponics:bucket_wet"})
-				end
+				or (string.find(nx2.name, "pipeworks:") and string.find(nx2.name, "_loaded"))
+				or (string.find(nz1.name, "pipeworks:") and string.find(nz1.name, "_loaded"))
+				or (string.find(nz2.name, "pipeworks:") and string.find(nz2.name, "_loaded"))
+				or (string.find(ny1.name, "pipeworks:") and string.find(ny1.name, "_loaded")) then
+					if node.name ~= "hydroponics:bucket_dry" then
+						return
+					else
+						minetest.set_node(pos, {name = "hydroponics:bucket_wet"})
+					end
 			else
 				minetest.set_node(pos, {name = "hydroponics:bucket_dry"})
 			end
