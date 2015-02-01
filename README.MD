@@ -4,7 +4,7 @@
 
 	License: WTFPL
 
-	Dependencies: default (Comes with minetest_game), dye (Comes with minetest_game), homedecor?, pipeworks?
+	Dependencies: default (Comes with minetest_game), dye (Comes with minetest_game), homedecor?, pipeworks?, mesecons?
 
 Adds:
  - A hydroponic bucket that works with pipeworks.
