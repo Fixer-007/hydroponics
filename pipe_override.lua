@@ -25,107 +25,107 @@ function pipeworks.scan_pipe_surroundings(pos)
 -- Special handling for valves...
 
 	if (string.find(nxm.name, "pipeworks:valve") ~= nil)
-	  and (nxm.param2 == 0 or nxm.param2 == 2) then
-		pxm=1
+		and (nxm.param2 == 0 or nxm.param2 == 2) then
+			pxm=1
 	end
 
 	if (string.find(nxp.name, "pipeworks:valve") ~= nil)
-	  and (nxp.param2 == 0 or nxp.param2 == 2) then
-		pxp=1
+		and (nxp.param2 == 0 or nxp.param2 == 2) then
+			pxp=1
 	end
 
 	if (string.find(nzm.name, "pipeworks:valve") ~= nil)
-	  and (nzm.param2 == 1 or nzm.param2 == 3) then
-		pzm=1
+		and (nzm.param2 == 1 or nzm.param2 == 3) then
+			pzm=1
 	end
 
 	if (string.find(nzp.name, "pipeworks:valve") ~= nil)
-	  and (nzp.param2 == 1 or nzp.param2 == 3) then
-		pzp=1
+		and (nzp.param2 == 1 or nzp.param2 == 3) then
+			pzp=1
 	end
 
 -- ...flow sensors...
 
 	if (string.find(nxm.name, "pipeworks:flow_sensor") ~= nil)
-	  and (nxm.param2 == 0 or nxm.param2 == 2) then
-		pxm=1
+		and (nxm.param2 == 0 or nxm.param2 == 2) then
+			pxm=1
 	end
 
 	if (string.find(nxp.name, "pipeworks:flow_sensor") ~= nil)
-	  and (nxp.param2 == 0 or nxp.param2 == 2) then
-		pxp=1
+		and (nxp.param2 == 0 or nxp.param2 == 2) then
+			pxp=1
 	end
 
 	if (string.find(nzm.name, "pipeworks:flow_sensor") ~= nil)
-	  and (nzm.param2 == 1 or nzm.param2 == 3) then
-		pzm=1
+		and (nzm.param2 == 1 or nzm.param2 == 3) then
+			pzm=1
 	end
 
 	if (string.find(nzp.name, "pipeworks:flow_sensor") ~= nil)
-	  and (nzp.param2 == 1 or nzp.param2 == 3) then
-		pzp=1
+		and (nzp.param2 == 1 or nzp.param2 == 3) then
+			pzp=1
 	end
 
 -- ...spigots...
 
 	if (string.find(nxm.name, "pipeworks:spigot") ~= nil)
-	  and nxm.param2 == 1 then
-		pxm=1
+		and nxm.param2 == 1 then
+			pxm=1
 	end
 
 	if (string.find(nxp.name, "pipeworks:spigot") ~= nil)
-	  and nxp.param2 == 3 then
-		pxp=1
+		and nxp.param2 == 3 then
+			pxp=1
 	end
 
 	if (string.find(nzm.name, "pipeworks:spigot") ~= nil)
-	  and nzm.param2 == 0 then
-		pzm=1
+		and nzm.param2 == 0 then
+			pzm=1
 	end
 
 	if (string.find(nzp.name, "pipeworks:spigot") ~= nil)
-	  and nzp.param2 == 2 then
-		pzp=1
+		and nzp.param2 == 2 then
+			pzp=1
 	end
 
 -- ...sealed pipe entry/exit...
 
 	if (string.find(nxm.name, "pipeworks:entry_panel") ~= nil)
-	  and (nxm.param2 == 1 or nxm.param2 == 3) then
-		pxm=1
+		and (nxm.param2 == 1 or nxm.param2 == 3) then
+			pxm=1
 	end
 
 	if (string.find(nxp.name, "pipeworks:entry_panel") ~= nil)
-	  and (nxp.param2 == 1 or nxp.param2 == 3) then
-		pxp=1
+		and (nxp.param2 == 1 or nxp.param2 == 3) then
+			pxp=1
 	end
 
 	if (string.find(nzm.name, "pipeworks:entry_panel") ~= nil)
-	  and (nzm.param2 == 0 or nzm.param2 == 2) then
-		pzm=1
+		and (nzm.param2 == 0 or nzm.param2 == 2) then
+			pzm=1
 	end
 
 	if (string.find(nzp.name, "pipeworks:entry_panel") ~= nil)
-	  and (nzp.param2 == 0 or nzp.param2 == 2) then
-		pzp=1
+		and (nzp.param2 == 0 or nzp.param2 == 2) then
+			pzp=1
 	end
 
 	if (string.find(nym.name, "pipeworks:entry_panel") ~= nil)
-	  and nym.param2 == 13 then
-		pym=1
+		and nym.param2 == 13 then
+			pym=1
 	end
 
 	if (string.find(nyp.name, "pipeworks:entry_panel") ~= nil)
-	  and nyp.param2 == 13 then
-		pyp=1
+		and nyp.param2 == 13 then
+			pyp=1
 	end
 
 
 -- ...pumps, grates...
 
-	if (string.find(nym.name, "pipeworks:grating") ~= nil) or
-	   (string.find(nym.name, "pipeworks:pump") ~= nil) then
-		pym=1
+	if (string.find(nym.name, "pipeworks:grating") ~= nil)
+	    or (string.find(nym.name, "pipeworks:pump") ~= nil) then
+			pym=1
 	end
 
 -- ...fountainheads...
@@ -144,56 +144,35 @@ function pipeworks.scan_pipe_surroundings(pos)
 		pyp=1
 	end
 
--- ...dry hydroponic bucket...
+-- ...hydroponic bucket...
 
 	if (string.find(nxm.name, "hydroponics:bucket_dry") ~= nil)
-	  and (nxm.param2 == 0 or nxm.param2 == 2) then
-		pxm=1
+		or (string.find(nxm.name, "hydroponics:bucket_wet") ~= nil)
+		and (nxm.param2 == 0 or nxm.param2 == 2) then
+			pxm=1
 	end
 
 	if (string.find(nxp.name, "hydroponics:bucket_dry") ~= nil)
-	  and (nxp.param2 == 0 or nxp.param2 == 2) then
-		pxp=1
+		or (string.find(nxp.name, "hydroponics:bucket_wet") ~= nil)
+		and (nxp.param2 == 0 or nxp.param2 == 2) then
+			pxp=1
 	end
 
 	if (string.find(nzm.name, "hydroponics:bucket_dry") ~= nil)
-	  and (nzm.param2 == 0 or nzm.param2 == 2) then
-		pzm=1
+		or (string.find(nzm.name, "hydroponics:bucket_wet") ~= nil)
+		and (nzm.param2 == 0 or nzm.param2 == 2) then
+			pzm=1
 	end
 
 	if (string.find(nzp.name, "hydroponics:bucket_dry") ~= nil)
-	  and (nzp.param2 == 0 or nzp.param2 == 2) then
-		pzp=1
+		or (string.find(nzp.name, "hydroponics:bucket_wet") ~= nil)
+		and (nzp.param2 == 0 or nzp.param2 == 2) then
+			pzp=1
 	end
 	
-	if (string.find(nyp.name, "hydroponics:bucket_dry") ~= nil) then
-		pyp=1
-	end
-
--- ...wet hydroponic bucket...
-
-	if (string.find(nxm.name, "hydroponics:bucket_wet") ~= nil)
-	  and (nxm.param2 == 0 or nxm.param2 == 2) then
-		pxm=1
-	end
-
-	if (string.find(nxp.name, "hydroponics:bucket_wet") ~= nil)
-	  and (nxp.param2 == 0 or nxp.param2 == 2) then
-		pxp=1
-	end
-
-	if (string.find(nzm.name, "hydroponics:bucket_wet") ~= nil)
-	  and (nzm.param2 == 0 or nzm.param2 == 2) then
-		pzm=1
-	end
-
-	if (string.find(nzp.name, "hydroponics:bucket_wet") ~= nil)
-	  and (nzp.param2 == 0 or nzp.param2 == 2) then
-		pzp=1
-	end
-	
-	if (string.find(nyp.name, "hydroponics:bucket_wet") ~= nil) then
-		pyp=1
+	if (string.find(nyp.name, "hydroponics:bucket_dry") ~= nil)
+		or (string.find(nyp.name, "hydroponics:bucket_wet") ~= nil)	then
+			pyp=1
 	end
 
 -- ...extra devices specified via the function's parameters
