@@ -1,5 +1,8 @@
 -- Hydroponic Grow Light
 
+local mesecons_mod = minetest.get_modpath("mesecons")
+local moreblocks_mod = minetest.get_modpath("moreblocks")
+
 -- Settings --
 local height_max = 0	-- How far lights can be from a plant. 0 = infinite
 
@@ -16,6 +19,44 @@ local grow_light_rules = {
 	{x=0, y=0, z=1},
 }
 
+function hydroponics.light_on(pos)
+	minetest.set_node(pos, {name = "hydroponics:grow_light_on"})
+	local p = {x=pos.x, y=pos.y-1, z=pos.z}
+	local n = minetest.get_node(p)
+	local height = 0
+	while n.name == "air" and height ~= height_max do
+		minetest.set_node(p, {name = "air", param1 = 238})
+		p = {x=p.x, y=p.y-1, z=p.z}
+		n = minetest.get_node(p)
+		height = height + 1
+	end
+end
+
+function hydroponics.light_off(pos)
+	minetest.set_node(pos, {name = "hydroponics:grow_light_off"})
+	local p = {x=pos.x, y=pos.y-1, z=pos.z}
+	local n = minetest.get_node(p)
+	local height = 0
+	while n.name == "air" and height ~= height_max do
+		minetest.set_node(p, {name = "air", param1 = 0})
+		p = {x=p.x, y=p.y-1, z=p.z}
+		n = minetest.get_node(p)
+		height = height + 1
+	end
+end
+
+function hydroponics.light_dig(pos)
+	local p = {x=pos.x, y=pos.y-1, z=pos.z}
+	local n = minetest.get_node(p)
+	local height = 0
+	while n.name == "air" and height ~= height_max do
+		minetest.set_node(p, {name = "air", param1 = 0})
+		p = {x=p.x, y=p.y-1, z=p.z}
+		n = minetest.get_node(p)
+		height = height + 1
+	end
+end
+
 -- Grow Light Off
 minetest.register_node("hydroponics:grow_light_off", {
 	description = "Hydroponic Grow Light",
@@ -23,58 +64,23 @@ minetest.register_node("hydroponics:grow_light_off", {
 	groups = {snappy = 2},
 	sounds = default.node_sound_stone_defaults(),
 	on_punch = function(pos, node, puncher, pointed_thing)
-		if not minetest.get_modpath("mesecons") then
-			minetest.set_node(pos, {name = "hydroponics:grow_light_on"})
-			local p = {x=pos.x, y=pos.y-1, z=pos.z}
-			local n = minetest.get_node(p)
-			local height = 0
-			while n.name == "air" and height ~= height_max do
-				minetest.set_node(p, {name = "air", param1 = 238})
-				p = {x=p.x, y=p.y-1, z=p.z}
-				n = minetest.get_node(p)
-				height = height + 1
-			end
+		if not mesecons_mod then
+			hydroponics.light_on(pos)
 		else
 			return
 		end
 	end,
 	after_dig_node = function(pos, node, digger)
-		local p = {x=pos.x, y=pos.y-1, z=pos.z}
-		local n = minetest.get_node(p)
-		local height = 0
-		while n.name == "air" and height ~= height_max do
-			minetest.set_node(p, {name = "air", param1 = 0})
-			p = {x=p.x, y=p.y-1, z=p.z}
-			n = minetest.get_node(p)
-			height = height + 1
-		end
+		hydroponics.light_dig(pos)
 	end,
 	mesecons = {
 		effector = {
 			rules = grow_light_rules,
 			action_on = function (pos, node)
-				minetest.set_node(pos, {name = "hydroponics:grow_light_on"})
-				local p = {x=pos.x, y=pos.y-1, z=pos.z}
-				local n = minetest.get_node(p)
-				local height = 0
-				while n.name == "air" and height ~= height_max do
-					minetest.set_node(p, {name = "air", param1 = 238})
-					p = {x=p.x, y=p.y-1, z=p.z}
-					n = minetest.get_node(p)
-					height = height + 1
-				end
+				hydroponics.light_on(pos)
 			end,
 			action_off = function (pos, node)
-				minetest.set_node(pos, {name = "hydroponics:grow_light_off"})
-				local p = {x=pos.x, y=pos.y-1, z=pos.z}
-				local n = minetest.get_node(p)
-				local height = 0
-				while n.name == "air" and height ~= height_max do
-					minetest.set_node(p, {name = "air", param1 = 0})
-					p = {x=p.x, y=p.y-1, z=p.z}
-					n = minetest.get_node(p)
-					height = height + 1
-				end
+				hydroponics.light_off(pos)
 			end,
 		},
 	},
@@ -89,64 +95,29 @@ minetest.register_node("hydroponics:grow_light_on", {
 	groups = {snappy = 2, not_in_creative_inventory = 1},
 	sounds = default.node_sound_stone_defaults(),
 	on_punch = function(pos, node, puncher, pointed_thing)
-		if not minetest.get_modpath("mesecons") then
-			minetest.set_node(pos, {name = "hydroponics:grow_light_off"})
-			local p = {x=pos.x, y=pos.y-1, z=pos.z}
-			local n = minetest.get_node(p)
-			local height = 0
-			while n.name == "air" and height ~= height_max do
-				minetest.set_node(p, {name = "air", param1 = 0})
-				p = {x=p.x, y=p.y-1, z=p.z}
-				n = minetest.get_node(p)
-				height = height + 1
-			end
+		if not mesecons_mod then
+			hydroponics.light_off(pos)
 		else
 			return
 		end
 	end,
 	after_dig_node = function(pos, node, digger)
-		local p = {x=pos.x, y=pos.y-1, z=pos.z}
-		local n = minetest.get_node(p)
-		local height = 0
-		while n.name == "air" and height ~= height_max do
-			minetest.set_node(p, {name = "air", param1 = 0})
-			p = {x=p.x, y=p.y-1, z=p.z}
-			n = minetest.get_node(p)
-			height = height + 1
-		end
+		hydroponics.light_dig(pos)
 	end,
 	mesecons = {
 		effector = {
 			rules = grow_light_rules,
 			action_on = function (pos, node)
-				minetest.set_node(pos, {name = "hydroponics:grow_light_on"})
-				local p = {x=pos.x, y=pos.y-1, z=pos.z}
-				local n = minetest.get_node(p)
-				local height = 0
-				while n.name == "air" and height ~= height_max do
-					minetest.set_node(p, {name = "air", param1 = 238})
-					p = {x=p.x, y=p.y-1, z=p.z}
-					n = minetest.get_node(p)
-					height = height + 1
-				end
+				hydroponics.light_on(pos)
 			end,
 			action_off = function (pos, node)
-				minetest.set_node(pos, {name = "hydroponics:grow_light_off"})
-				local p = {x=pos.x, y=pos.y-1, z=pos.z}
-				local n = minetest.get_node(p)
-				local height = 0
-				while n.name == "air" and height ~= height_max do
-					minetest.set_node(p, {name = "air", param1 = 0})
-					p = {x=p.x, y=p.y-1, z=p.z}
-					n = minetest.get_node(p)
-					height = height + 1
-				end
+				hydroponics.light_off(pos)
 			end,
 		},
 	},
 })
 
-if not minetest.get_modpath("moreblocks") then
+if not moreblocks_mod then
 	-- Grow Light Craft (Without Moreblocks)
 	minetest.register_craft({
 		output = "hydroponics:grow_light_off",
