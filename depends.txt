@@ -1,6 +1,4 @@
 default
 dye
-homedecor?
 mesecons?
-moreblocks?
 pipeworks?
