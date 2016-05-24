@@ -93,7 +93,7 @@ minetest.register_node("hydroponics:grow_light_on", {
 				hydroponics.toggle_light(pos, true)
 			end,
 			action_off = function (pos, node)
-				hydroponics.toggle_light(pos, true)
+				hydroponics.toggle_light(pos, false)
 			end,
 		},
 	},
